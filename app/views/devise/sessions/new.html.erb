@@ -1,5 +1,5 @@
 <%= render layout: "shared/auth_card", locals: { title: "Log in" } do %>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %> #resource Devise variable represents the user model, resource = new empty User object
     <div class="field mb-2 mt-5">
       <%= f.label :email, class: "block text-lg font-medium text-gray-700 mb-2" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "rounded-md border-gray-300 p-3 w-full border-2 shadow-sm focus:outline-none focus:border-gray-300" %>
