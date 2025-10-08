@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   
+  # Profile completion
+  resource :profile, only: [:new, :create]
+  
   # Dashboard (home page after login)
   get "dashboard", to: "dashboard#index"
   
