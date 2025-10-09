@@ -7,8 +7,16 @@ Rails.application.routes.draw do
   # Dashboard (home page after login)
   get "dashboard", to: "dashboard#index"
 
-  # Admin
-  get "admin", to: "admin#index"
+  # Employees (Admin only)
+  resources :employees, only: [:index]
+  
+  # User pages
+  get "my_payslips", to: "my_payslips#index"
+  get "request", to: "request#index"
+  get "my_profile", to: "my_profile#index"
+  
+  # Admin payslips management
+  resources :payslips, only: [:index, :new, :create]
   
   # Root path
   root "dashboard#index"

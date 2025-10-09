@@ -1,0 +1,19 @@
+<div class="max-w-7xl mx-auto py-12">
+  <div class="bg-white rounded-2xl shadow-xl p-8">
+    <h2 class="text-3xl font-bold text-green-900 mb-4">Request something</h2>
+    
+    <% if current_user.employee&.department.blank? %>
+      <div class="text-center py-12">
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+      <p class="text-black-800 text-lg font-medium">You are not assigned a department yet.</p>
+      <p class="text-black-700 mt-2">Please contact your employer.</p>
+    </div>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <p class="text-gray-500">Request form coming soon.</p>
+        <p class="text-sm text-gray-400 mt-2">You'll be able to request payslips here.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

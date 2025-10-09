@@ -1,0 +1,54 @@
+<tr class="hover:bg-gray-50">
+  <!-- Name Column -->
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm font-medium text-gray-900">
+      <% if employee.employee&.first_name.present? && employee.employee&.last_name.present? %>
+        <%= employee.employee.first_name %> <%= employee.employee.last_name %>
+      <% else %>
+        <%= render 'shared/status_badge', 
+            type: 'error',
+            text: 'Profile not completed',
+            icon: 'no-symbol' %>
+      <% end %>
+    </div>
+  </td>
+  
+  <!-- Email Column -->
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900"><%= employee.email %></div>
+  </td>
+  
+  <!-- Department Column -->
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="flex items-center text-sm text-gray-900">
+      <% if employee.employee&.department.present? %>
+        <%= heroicon "building-office-2", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
+        <%= employee.employee.department %>
+      <% else %>
+        <%= heroicon "building-office-2", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
+        <span>N/A</span>
+      <% end %>
+    </div>  
+  </td>
+  
+  <!-- Role Column -->
+  <td class="px-6 py-4 whitespace-nowrap">
+    <% if employee.role.present? %>
+      <%= render 'shared/status_badge', 
+          type: employee.admin? ? 'info' : 'default',
+          text: employee.role.capitalize %>
+    <% else %>
+      <%= render 'shared/status_badge', 
+          type: 'error',
+          text: 'Not Set',
+          icon: 'no-symbol' %>
+    <% end %>
+  </td>
+  
+  <!-- Actions Column -->
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    <button class="hover:text-blue-900 pl-5">
+      <%= heroicon "eye", variant: :outline, options: { class: "w-5 h-5" } %>
+    </button>
+  </td>
+</tr>

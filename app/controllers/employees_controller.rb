@@ -1,8 +1,9 @@
-class AdminController < ApplicationController
+class EmployeesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
 
   def index
+    @users = User.includes(:employee).page(params[:page]).per(5)
   end
 
   private

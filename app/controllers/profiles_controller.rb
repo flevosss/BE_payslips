@@ -21,7 +21,7 @@ class ProfilesController < ApplicationController
 
   def employee_params #employee_params is the strong parameters for the employee
     params.require(:employee).permit(
-      :first_name, :last_name, :date_of_birth, :address, :postal_code, :bsn,
+      :first_name, :last_name, :date_of_birth, :address, :postal_code, :bsn, :department,
       account_info_attributes: [:account_number, :account_name] #allows the account info to be saved to the database
     )
   end
