@@ -5,4 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :employee, dependent: :destroy
+
+  enum :role, { employee: 0, admin: 1 }
+
+  
+  after_initialize :set_default_role, if: :new_record? #set the default role to employee if the user is new
+
+  def set_default_role 
+    self.role ||= :employee #set the default role to employee if the user is new
+  end
 end
