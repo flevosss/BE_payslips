@@ -23,7 +23,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-50">
+  <body class="bg-gray-50" data-controller="loading">
+    <div id="loading-spinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+    </div>
+
     <%= render "shared/navbar" %>
     
     <main class="container mx-auto mt-8 px-5">
