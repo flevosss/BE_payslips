@@ -1,0 +1,54 @@
+<%
+  # Map flash keys to toast types
+  flash_type_map = {
+    notice: 'success',
+    success: 'success',
+    alert: 'error',
+    error: 'error',
+    info: 'info'
+  }
+  
+  # Get all active flash messages
+  active_flashes = flash_type_map.select { |key, _| flash[key].present? }
+%>
+
+<% if active_flashes.any? %>
+  <div class="fixed bottom-6 right-6 z-50 max-w-md">
+    <% active_flashes.each do |flash_key, toast_type| %>
+      <%
+        case toast_type
+        when 'success'
+          bg_color = 'bg-green-900/20'
+          border_color = 'border-green-900'
+          icon_color = 'text-green-900'
+          icon = 'check-circle'
+        when 'error'
+          bg_color = 'bg-red-600/20'
+          border_color = 'border-red-600'
+          icon_color = 'text-red-600'
+          icon = 'exclamation-circle'
+        when 'info'
+          bg_color = 'bg-blue-600/20'
+          border_color = 'border-blue-600'
+          icon_color = 'text-blue-600'
+          icon = 'information-circle'
+        else
+          bg_color = 'bg-gray-600/20'
+          border_color = 'border-gray-600'
+          icon_color = 'text-gray-600'
+          icon = 'bell'
+        end
+      %>
+      
+      <div class="toast-item toast-glass <%= bg_color %> border <%= border_color %> backdrop-blur-md text-gray-900 px-6 py-4 rounded-lg shadow-2xl mb-4 animate-fade-in-up" 
+           data-controller="toast" 
+           role="alert">
+        <div class="flex items-center">
+          <%= heroicon icon, variant: :solid, options: { class: "w-6 h-6 mr-3 #{icon_color}" } %>
+          <span><%= flash[flash_key] %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

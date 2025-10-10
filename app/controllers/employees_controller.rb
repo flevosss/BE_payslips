@@ -17,6 +17,16 @@ class EmployeesController < ApplicationController
   def update
     @user = User.find(params[:id])
     
+    # Prevent demoting admins
+    if @user.admin? && params[:user][:role] == 'employee'
+      if @user.id == current_user.id
+        redirect_to edit_employee_path(@user), alert: "You cannot demote yourself from admin"
+      else
+        redirect_to edit_employee_path(@user), alert: "You cannot demote other admins"
+      end
+      return
+    end
+    
     if @user.update(user_params)
       redirect_to employee_path(@user), notice: "Employee updated successfully"
     else
