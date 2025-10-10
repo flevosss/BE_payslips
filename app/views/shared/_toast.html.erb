@@ -43,9 +43,20 @@
       <div class="toast-item toast-glass <%= bg_color %> border <%= border_color %> backdrop-blur-md text-gray-900 px-6 py-4 rounded-lg shadow-2xl mb-4 animate-fade-in-up" 
            data-controller="toast" 
            role="alert">
-        <div class="flex items-center">
-          <%= heroicon icon, variant: :solid, options: { class: "w-6 h-6 mr-3 #{icon_color}" } %>
-          <span><%= flash[flash_key] %></span>
+        <div class="flex items-start">
+          <%= heroicon icon, variant: :solid, options: { class: "w-6 h-6 mr-3 mt-0.5 flex-shrink-0 #{icon_color}" } %>
+          <div class="flex-1">
+            <% message = flash[flash_key] %>
+            <% if message.include?(', ') %>
+              <ul class="list-disc list-inside space-y-1">
+                <% message.split(', ').each do |error| %>
+                  <li class="text-sm"><%= error %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <span><%= message %></span>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>
