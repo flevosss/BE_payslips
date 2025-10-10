@@ -1,0 +1,14 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+  <!-- Back Button -->
+  <%= link_to employees_path, class: "inline-flex items-center text-sm text-gray-600 hover:text-gray-900" do %>
+    <%= heroicon "arrow-left", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
+    Back to Employees
+  <% end %>
+</div>
+
+<% if @user.employee&.first_name.present? && @user.employee&.last_name.present? %>
+  <%= render 'shared/profile_details', user: @user %>
+<% else %>
+  <%= render 'shared/incomplete_profile' %>
+<% end %>
+

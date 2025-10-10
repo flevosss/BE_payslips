@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
 
   # Employees (Admin only)
-  resources :employees, only: [:index]
+  resources :employees, only: [:index, :show]
   
   # User pages
   get "my_payslips", to: "my_payslips#index"

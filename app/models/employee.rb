@@ -9,7 +9,6 @@ class Employee < ApplicationRecord
     validates :address, presence: true
     validates :postal_code, presence: true
     validates :bsn, presence: true
-    validates :department, presence: true
 
     validates :bsn, uniqueness: true
     validates :bsn, length: { is: 9 }
