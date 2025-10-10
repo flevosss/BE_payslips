@@ -17,7 +17,7 @@
   color_class = color_classes[type]
 %>
 
-<span class="px-2 inline-flex items-center text-xs leading-5 font-semibold rounded-full <%= color_class %>">
+<span class="px-3 py-1 inline-flex items-center text-sm leading-5 font-semibold rounded-md <%= color_class %>">
   <% if icon.present? %>
     <%= heroicon icon, variant: :outline, options: { class: "w-3 h-3 mr-1" } %>
   <% end %>
