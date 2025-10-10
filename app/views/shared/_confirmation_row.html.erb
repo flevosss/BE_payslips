@@ -1,0 +1,45 @@
+<%
+  # Parameters:
+  # item_id: The ID of the item
+  # item_name: The display name of the item
+  # delete_path: The path to send the DELETE request to
+  # colspan: Number of columns to span (default: 6)
+  # action_text: Optional, defaults to "Delete"
+  colspan ||= 6
+  action_text ||= "Delete"
+%>
+
+<tr class="hidden bg-red-50 confirmation-row" 
+    data-controller="delete-confirmation"
+    data-employee-id="<%= item_id %>"
+    onclick="event.stopPropagation()">
+  <td colspan="<%= colspan %>" class="px-6 py-4">
+    <div class="flex items-center justify-between border-l-4 border-red-600 pl-4">
+      <div class="flex items-center">
+        <%= heroicon "exclamation-triangle", variant: :solid, options: { class: "w-6 h-6 text-red-600 mr-3" } %>
+        <div>
+          <p class="text-sm font-medium text-gray-900">
+            <%= action_text %> <%= item_name %>?
+          </p>
+          <p class="text-xs text-gray-600 mt-1">This action cannot be undone.</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button type="button"
+                data-action="click->delete-confirmation#cancel"
+                class="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors font-medium">
+          Cancel
+        </button>
+        
+        <%= button_to delete_path, 
+            method: :delete,
+            data: { action: "click->delete-confirmation#confirm" },
+            class: "px-4 py-2 text-sm bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-medium" do %>
+          <%= action_text %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>
+

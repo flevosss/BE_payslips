@@ -17,13 +17,9 @@ class EmployeesController < ApplicationController
   def update
     @user = User.find(params[:id])
     
-    # Prevent demoting admins
-    if @user.admin? && params[:user][:role] == 'employee'
-      if @user.id == current_user.id
-        redirect_to edit_employee_path(@user), alert: "You cannot demote yourself from admin"
-      else
-        redirect_to edit_employee_path(@user), alert: "You cannot demote other admins"
-      end
+    # Prevent demoting yourself
+    if @user.id == current_user.id && @user.admin? && params[:user][:role] == 'employee'
+      redirect_to edit_employee_path(@user), alert: "You cannot demote yourself from admin"
       return
     end
     
@@ -37,12 +33,7 @@ class EmployeesController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     
-    # Prevent deleting admins or yourself
-    if @user.admin?
-      redirect_to employee_path(@user), alert: "Cannot delete admin users"
-      return
-    end
-    
+    # Prevent deleting yourself
     if @user.id == current_user.id
       redirect_to employee_path(@user), alert: "You cannot delete your own account"
       return

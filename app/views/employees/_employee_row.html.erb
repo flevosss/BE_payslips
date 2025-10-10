@@ -1,4 +1,11 @@
-<tr class="hover:bg-gray-50">
+<% employee_name = employee.employee&.first_name.present? && employee.employee&.last_name.present? ? "#{employee.employee.first_name} #{employee.employee.last_name}" : employee.email %>
+
+<!-- Main Row -->
+<tr class="hover:bg-gray-50 cursor-pointer employee-row" 
+    data-controller="delete-confirmation"
+    data-employee-id="<%= employee.id %>"
+    onclick="window.location='<%= employee_path(employee) %>'">
+  
   <!-- Name Column -->
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm font-medium text-gray-900">
@@ -33,22 +40,43 @@
   
   <!-- Role Column -->
   <td class="px-6 py-4 whitespace-nowrap">
-    <% if employee.role.present? %>
-      <%= render 'shared/status_badge', 
-          type: employee.admin? ? 'info' : 'default',
-          text: employee.role.capitalize %>
-    <% else %>
-      <%= render 'shared/status_badge', 
-          type: 'error',
-          text: 'Not Set',
-          icon: 'no-symbol' %>
+    <div class="flex items-center text-sm text-gray-900">
+      <% if employee.role.present? %>
+        <% if employee.admin? %>
+          <%= heroicon "shield-check", variant: :outline, options: { class: "w-4 h-4 mr-2 text-gray-700" } %>
+          <span class="text-gray-700 font-medium">Admin</span>
+        <% else %>
+          <%= heroicon "user", variant: :outline, options: { class: "w-4 h-4 mr-2 text-gray-700" } %>
+          <span>Employee</span>
+        <% end %>
+      <% else %>
+        <%= heroicon "no-symbol", variant: :outline, options: { class: "w-4 h-4 mr-2 text-gray-700" } %>
+        <span class="text-gray-700">Not Set</span>
+      <% end %>
+    </div>
+  </td>
+  
+  <!-- Profile Column -->
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
+    <%= link_to employee_path(employee), class: "inline-block p-2 rounded-md border border-transparent hover:bg-gray-50 hover:border-black transition-all" do %>
+      <%= heroicon "eye", variant: :outline, options: { class: "w-5 h-5" } %>
     <% end %>
   </td>
   
-  <!-- Actions Column -->
-  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-    <%= link_to employee_path(employee), class: "hover:text-blue-900 pl-5" do %>
-      <%= heroicon "user-circle", variant: :outline, options: { class: "w-5 h-5" } %>
+  <!-- Delete Column -->
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
+    <% if current_user.id != employee.id %>
+      <button type="button" 
+              data-action="click->delete-confirmation#showConfirmation"
+              class="inline-block p-2 rounded-md border border-transparent hover:bg-red-50 hover:border-red-300 transition-all">
+        <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5 text-red-600" } %>
+      </button>
     <% end %>
   </td>
 </tr>
+
+<%= render 'shared/confirmation_row', 
+    item_id: employee.id,
+    item_name: employee_name,
+    delete_path: employee_path(employee),
+    colspan: 6 %>
