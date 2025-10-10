@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
       redirect_to new_profile_path, alert: "Please complete your profile to continue"
     end
   end
+
+  def after_sign_out_path_for(resource_or_scope) #this is what devise does by default, so we need to override it
+    new_user_session_path #this is the path that devise will redirect to after signing out
+  end
 end
