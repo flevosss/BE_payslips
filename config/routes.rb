@@ -8,12 +8,12 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
 
   # Employees (Admin only)
-  resources :employees, only: [:index, :show]
+  resources :employees, only: [:index, :show, :edit, :update, :destroy]
   
   # User pages
   get "my_payslips", to: "my_payslips#index"
   get "request", to: "request#index"
-  get "my_profile", to: "my_profile#index"
+  resource :my_profile, only: [:show, :edit, :update], controller: 'my_profile' #could also change the controller name to profiles because it automatically pluralizes it and doesnt find the controller named 
   
   # Admin payslips management
   resources :payslips, only: [:index, :new, :create]

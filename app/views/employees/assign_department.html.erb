@@ -1,0 +1,43 @@
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Back Button -->
+  <div class="mb-6">
+    <%= link_to employee_path(@user), class: "inline-flex items-center text-sm text-gray-600 hover:text-gray-900" do %>
+      <%= heroicon "arrow-left", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
+      Back to Profile
+    <% end %>
+  </div>
+
+  <!-- Assign Department Form Card -->
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="px-6 py-4 bg-green-900 border-b border-green-800">
+      <h2 class="text-lg font-semibold text-white flex items-center">
+        <%= heroicon "building-office-2", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
+        Assign Department
+      </h2>
+    </div>
+    
+    <div class="px-6 py-6">
+      <%= form_with model: @user.employee, url: employee_path(@user), method: :patch, local: true do |f| %>
+        <div class="space-y-4">
+          <div>
+            <label for="employee_department" class="block text-sm font-medium text-gray-700 mb-2">
+              Department
+            </label>
+            <%= f.text_field :department, 
+                class: "w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500",
+                placeholder: "Enter department name" %>
+          </div>
+
+          <div class="flex gap-3 pt-4">
+            <%= f.submit "Save Changes", 
+                class: "bg-green-900 text-white px-6 py-2 rounded-md hover:bg-green-800 transition-colors font-medium" %>
+            <%= link_to "Cancel", 
+                employee_path(@user), 
+                class: "bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors font-medium" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

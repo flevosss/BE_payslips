@@ -2,7 +2,18 @@
 
   <!-- Employee Header -->
   <div class="bg-white shadow rounded-lg overflow-hidden mb-6">
-    <div class="bg-green-900 px-6 py-8">
+    <div class="bg-green-900 px-6 py-8 relative">
+      <% if show_edit && current_user.admin? && !user.admin? && current_user.id != user.id %>
+        <div class="absolute top-4 right-4">
+          <%= button_to employee_path(user), 
+              method: :delete, 
+              data: { turbo_confirm: "Are you sure you want to delete this employee? This action cannot be undone." },
+              class: "p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors" do %>
+            <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5" } %>
+          <% end %>
+        </div>
+      <% end %>
+      
       <div class="flex items-center">
         <div class="flex-shrink-0 h-20 w-20 rounded-full bg-white flex items-center justify-center">
           <%= heroicon "user", variant: :outline, options: { class: "w-12 h-12 text-green-900" } %>
@@ -27,142 +38,118 @@
   <!-- Employee Details Grid -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Personal Information Card -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-      <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-          <%= heroicon "user-circle", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-          Personal Information
-        </h2>
-      </div>
-      <div class="px-6 py-4">
-        <dl class="space-y-4">
-          <div>
-            <dt class="text-sm font-medium text-gray-500">First Name</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.first_name || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-          
-          <div>
-            <dt class="text-sm font-medium text-gray-500">Last Name</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.last_name || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-          
-          <div>
-            <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.date_of_birth&.strftime('%B %d, %Y') || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-          
-          <div>
-            <dt class="text-sm font-medium text-gray-500">BSN</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.bsn || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </div>
+    <%= render 'shared/info_card', title: 'Personal Information', icon: 'user-circle' do %>
+      <dl class="space-y-4">
+        <div>
+          <dt class="text-sm font-medium text-gray-500">First Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.first_name || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Last Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.last_name || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.date_of_birth&.strftime('%B %d, %Y') || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">BSN</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.bsn || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+      </dl>
+    <% end %>
 
     <!-- Contact Information Card -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-      <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-          <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-          Contact Information
-        </h2>
-      </div>
-      <div class="px-6 py-4">
-        <dl class="space-y-4">
-          <div>
-            <dt class="text-sm font-medium text-gray-500">Email</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.email %>
-            </dd>
-          </div>
-          
-          <div>
-            <dt class="text-sm font-medium text-gray-500">Address</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.address || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-          
-          <div>
-            <dt class="text-sm font-medium text-gray-500">Postal Code</dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.postal_code || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </div>
+    <%= render 'shared/info_card', title: 'Contact Information', icon: 'map-pin' do %>
+      <dl class="space-y-4">
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Email</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.email %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Address</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.address || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Postal Code</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.postal_code || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+      </dl>
+    <% end %>
 
     <!-- Work Information Card -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-      <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-          <%= heroicon "building-office-2", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-          Work Information
-        </h2>
-      </div>
-      <div class="px-6 py-4">
+    <%= render 'shared/info_card', title: 'Work Information', icon: 'building-office-2' do %>
+      <dl class="space-y-4">
+        <div>
+          <div class="flex items-center justify-between">
+            <dt class="text-sm font-medium text-gray-500">Department</dt>
+            <% if show_edit && current_user.admin? %>
+              <%= link_to edit_employee_path(user), class: "inline-flex items-center text-xs text-green-900 hover:text-green-700" do %>
+                <%= heroicon "pencil", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+                Edit
+              <% end %>
+            <% end %>
+          </div>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= user.employee&.department || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+          </dd>
+        </div>
+        
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Role</dt>
+          <dd class="mt-1">
+            <%= render 'shared/status_badge', 
+                type: user.admin? ? 'info' : 'default',
+                text: user.role&.capitalize || 'Not Set' %>
+          </dd>
+        </div>
+      </dl>
+    <% end %>
+
+    <!-- Bank Account Information Card -->
+    <%= render 'shared/info_card', title: 'Bank Account Information', icon: 'credit-card' do %>
+      <% if user.employee&.account_info.present? %>
         <dl class="space-y-4">
           <div>
-            <dt class="text-sm font-medium text-gray-500">Department</dt>
+            <dt class="text-sm font-medium text-gray-500">Account Name</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              <%= user.employee&.department || content_tag(:span, 'Not provided', class: 'text-gray-400 italic') %>
+              <%= user.employee.account_info.account_name %>
             </dd>
           </div>
           
           <div>
-            <dt class="text-sm font-medium text-gray-500">Role</dt>
-            <dd class="mt-1">
-              <%= render 'shared/status_badge', 
-                  type: user.admin? ? 'info' : 'default',
-                  text: user.role&.capitalize || 'Not Set' %>
+            <dt class="text-sm font-medium text-gray-500">Account Number</dt>
+            <dd class="mt-1 text-sm text-gray-900 font-mono">
+              <%= user.employee.account_info.account_number %>
             </dd>
           </div>
         </dl>
-      </div>
-    </div>
-
-    <!-- Bank Account Information Card -->
-    <div class="bg-white shadow rounded-lg overflow-hidden">
-      <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-          <%= heroicon "credit-card", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-          Bank Account Information
-        </h2>
-      </div>
-      <div class="px-6 py-4">
-        <% if user.employee&.account_info.present? %>
-          <dl class="space-y-4">
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Account Name</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                <%= user.employee.account_info.account_name %>
-              </dd>
-            </div>
-            
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Account Number</dt>
-              <dd class="mt-1 text-sm text-gray-900 font-mono">
-                <%= user.employee.account_info.account_number %>
-              </dd>
-            </div>
-          </dl>
-        <% else %>
-          <div class="text-center py-6">
-            <%= heroicon "exclamation-circle", variant: :outline, options: { class: "w-12 h-12 text-gray-400 mx-auto mb-2" } %>
-            <p class="text-sm text-gray-500 italic">No bank account information available</p>
-          </div>
-        <% end %>
-      </div>
-    </div>
+      <% else %>
+        <div class="text-center py-6">
+          <%= heroicon "exclamation-circle", variant: :outline, options: { class: "w-12 h-12 text-gray-400 mx-auto mb-2" } %>
+          <p class="text-sm text-gray-500 italic">No bank account information available</p>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 

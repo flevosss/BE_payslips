@@ -7,7 +7,7 @@
 </div>
 
 <% if @user.employee&.first_name.present? && @user.employee&.last_name.present? %>
-  <%= render 'shared/profile_details', user: @user %>
+  <%= render 'shared/profile_details', user: @user, show_edit: true %>
 <% else %>
   <%= render 'shared/incomplete_profile' %>
 <% end %>
