@@ -37,10 +37,11 @@
           <% items.each do |item| %>
             <!-- Main Row -->
             <tr class="hover:bg-green-50 hover:border-l-4 hover:border-green-950 <%= item_name %>-row transition-all cursor-pointer" 
-                data-controller="row-select"
+                data-controller="row-select <%= 'delete-confirmation' if item_name == 'employee' && current_user&.can_delete_employees? %>"
                 data-action="click->row-select#selectRow"
                 data-row-select-target="row"
-                data-<%= item_name %>-id="<%= item.id %>">
+                data-<%= item_name %>-id="<%= item.id %>"
+                <% if item_name == 'employee' && current_user&.can_delete_employees? %>data-employee-id="<%= item.id %>"<% end %>>
               
               <%= render row_partial, item_name.to_sym => item %>
             </tr>

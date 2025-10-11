@@ -21,7 +21,7 @@
             <div data-action="click->employee-select#selectEmployee"
                  data-employee-select-target="card"
                  data-employee-id="<%= employee.id %>"
-                 data-employee-name="<%= "#{employee.first_name} #{employee.last_name}" %>"
+                 data-employee-name="<%= employee.first_name %> <%= employee.last_name %>"
                  data-employee-email="<%= employee.user.email %>">
               <%= render 'shared/employee_card', 
                   employee: employee, 
@@ -142,7 +142,7 @@
                 class: "bg-gray-200 text-gray-700 px-8 py-3 rounded-md hover:bg-gray-300 transition-colors font-medium text-lg" %>
           </div>
           </div><!-- End of formFields -->
-        </div><!-- End of space-y-6 -->
+        </div>
       <% end %>
     </div>
   </div>
