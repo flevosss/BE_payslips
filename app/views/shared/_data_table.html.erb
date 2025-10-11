@@ -1,0 +1,66 @@
+<%
+  # Parameters:
+  # headers: Array of header text/objects with text and optional classes
+  # items: Array of items to display
+  # row_partial: Partial name for rendering each row (e.g., 'employees/employee_row')
+  # item_name: Name for the items (e.g., 'employee' for employee_row partial)
+  # empty_message: Message to show when no items
+  # empty_icon: Icon to show when no items
+  # table_classes: Optional additional classes for the table wrapper
+  
+  # Set defaults for optional parameters
+  table_classes ||= ''
+  empty_message ||= 'No items found.'
+  empty_icon ||= 'document-text'
+%>
+
+<% if items.any? %>
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden <%= table_classes %>">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <% headers.each do |header| %>
+              <% if header.is_a?(Hash) %>
+                <th class="<%= header[:classes] || 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>">
+                  <%= header[:text] %>
+                </th>
+              <% else %>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <%= header %>
+                </th>
+              <% end %>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% items.each do |item| %>
+            <!-- Main Row -->
+            <tr class="hover:bg-green-50 hover:border-l-4 hover:border-green-950 <%= item_name %>-row transition-all cursor-pointer" 
+                data-controller="row-select"
+                data-action="click->row-select#selectRow"
+                data-row-select-target="row"
+                data-<%= item_name %>-id="<%= item.id %>">
+              
+              <%= render row_partial, item_name.to_sym => item %>
+            </tr>
+            
+            <% if item_name == 'employee' && current_user&.can_delete_employees? %>
+              <% employee_name = item.employee&.first_name.present? && item.employee&.last_name.present? ? "#{item.employee.first_name} #{item.employee.last_name}" : item.email %>
+              <%= render 'shared/confirmation_row', 
+                  item_id: item.id,
+                  item_name: employee_name,
+                  delete_path: employee_path(item),
+                  colspan: headers.length %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <div class="text-center py-8">
+    <%= heroicon empty_icon, variant: :outline, options: { class: "w-12 h-12 text-gray-400 mx-auto mb-3" } %>
+    <p class="text-gray-500"><%= empty_message %></p>
+  </div>
+<% end %>

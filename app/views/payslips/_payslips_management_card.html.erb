@@ -1,0 +1,49 @@
+<div class="bg-white rounded-2xl shadow-xl p-8">
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-2xl font-bold text-green-900">Payslips Management</h3>
+    <%= link_to new_payslip_path, class: "bg-green-900 text-white px-6 py-3 rounded-md hover:bg-green-800 transition-colors font-medium" do %>
+      <%= heroicon "plus", variant: :outline, options: { class: "w-5 h-5 mr-2 inline" } %>
+      Create Payslip
+    <% end %>
+  </div>
+  
+  <%= render 'shared/search_bar', 
+      search_path: payslips_path,
+      placeholder: "Search by anything...",
+      centered: true %>
+  
+  <% 
+    headers = ["Payslip #", "Employee", "Pay Period", "Salary", "Date"]
+  %>
+  
+  <%= render 'shared/data_table',
+      headers: headers,
+      items: payslips,
+      row_partial: 'payslips/payslip_row',
+      item_name: 'payslip',
+      empty_message: "No payslips found.",
+      empty_icon: "document-text" %>
+  
+  
+  
+  <!-- Pagination -->
+  <% if payslips.respond_to?(:current_page) && payslips.total_pages > 1 %>
+    <div class="flex items-center justify-center mt-6 pt-6 border-t border-gray-200">
+      <div class="flex items-center space-x-2">
+        <% if payslips.current_page > 1 %>
+          <%= link_to "← Previous", payslips_path(page: payslips.current_page - 1), 
+              class: "px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200" %>
+        <% end %>
+        
+        <span class="px-4 py-2 text-sm bg-green-900 text-white rounded-md">
+          Page <%= payslips.current_page %> of <%= payslips.total_pages %>
+        </span>
+        
+        <% if payslips.current_page < payslips.total_pages %>
+          <%= link_to "Next →", payslips_path(page: payslips.current_page + 1), 
+              class: "px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_09_135916) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_11_001943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_135916) do
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
+  create_table "payslips", force: :cascade do |t|
+    t.string "unique_number"
+    t.bigint "employee_id", null: false
+    t.date "date"
+    t.date "start_period"
+    t.date "end_period"
+    t.date "pay_date"
+    t.decimal "salary"
+    t.bigint "generated_by_id", null: false
+    t.datetime "generated_at"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_payslips_on_employee_id"
+    t.index ["generated_by_id"], name: "index_payslips_on_generated_by_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -53,4 +70,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_135916) do
 
   add_foreign_key "account_infos", "employees"
   add_foreign_key "employees", "users"
+  add_foreign_key "payslips", "employees"
+  add_foreign_key "payslips", "users", column: "generated_by_id"
 end

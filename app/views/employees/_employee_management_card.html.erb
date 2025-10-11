@@ -6,13 +6,19 @@
       placeholder: "Search by anything...",
       centered: true %>
   
-  <% if employees.present? %>
-    <%= render 'employees/employee_table', employees: employees %>
-  <% else %>
-    <div class="text-center py-8">
-      <p class="text-gray-500">No employees found.</p>
-    </div>
-  <% end %>
+  <% 
+    headers = ["Name", "Email", "Department", "Role", 
+               { text: "Profile", classes: "px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }]
+    headers << { text: "Delete", classes: "px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" } if current_user&.admin?
+  %>
+  
+  <%= render 'shared/data_table',
+      headers: headers,
+      items: employees,
+      row_partial: 'employees/employee_row',
+      item_name: 'employee',
+      empty_message: "No employees found.",
+      empty_icon: "user-group" %>
   
   <!-- Pagination -->
   <% if employees.respond_to?(:current_page) && employees.total_pages > 1 %>

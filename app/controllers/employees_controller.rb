@@ -7,15 +7,11 @@ class EmployeesController < ApplicationController
     
     # Search functionality
     if params[:query].present?
-      query = params[:query].downcase
-      filtered_users = @users.select do |user|
-        user.email.downcase.include?(query) ||
-        user.employee&.first_name&.downcase&.include?(query) ||
-        user.employee&.last_name&.downcase&.include?(query) ||
-        user.employee&.department&.downcase&.include?(query)
-      end
-      # Convert back to User relation for pagination
-      @users = User.where(id: filtered_users.map(&:id)).includes(:employee)
+      query = "%#{params[:query]}%"
+      @users = @users.left_joins(:employee).where(
+        "users.email ILIKE ? OR employees.first_name ILIKE ? OR employees.last_name ILIKE ? OR employees.department ILIKE ?",
+        query, query, query, query
+      )
     end
     
     @users = @users.page(params[:page]).per(5)
