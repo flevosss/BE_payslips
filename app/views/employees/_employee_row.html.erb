@@ -1,10 +1,11 @@
 <% employee_name = employee.employee&.first_name.present? && employee.employee&.last_name.present? ? "#{employee.employee.first_name} #{employee.employee.last_name}" : employee.email %>
 
 <!-- Main Row -->
-<tr class="hover:bg-gray-50 cursor-pointer employee-row" 
-    data-controller="delete-confirmation"
+<tr class="hover:bg-green-50 hover:border-l-4 hover:border-green-950 employee-row transition-all cursor-pointer" 
+    data-controller="delete-confirmation row-select"
     data-employee-id="<%= employee.id %>"
-    onclick="window.location='<%= employee_path(employee) %>'">
+    data-action="click->row-select#selectRow"
+    data-row-select-target="row">
   
   <!-- Name Column -->
   <td class="px-6 py-4 whitespace-nowrap">
