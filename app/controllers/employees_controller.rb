@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
+  before_action :check_admin_or_hr
 
   def index
     @users = User.includes(:employee)
@@ -46,6 +46,12 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
+    # Only admins can delete employees
+    unless current_user.can_delete_employees?
+      redirect_to employees_path, alert: "You don't have permission to delete employees"
+      return
+    end
+
     @user = User.find(params[:id])
     
     # Prevent deleting yourself
@@ -63,9 +69,6 @@ class EmployeesController < ApplicationController
 
   private
 
-  def check_admin
-    redirect_to root_path, alert: "You are not authorized to access this page" unless current_user.admin?
-  end
 
   def user_params
     params.require(:user).permit(:role, employee_attributes: [:id, :department])

@@ -8,9 +8,11 @@
         <% end %>
       </div>
 
-      <% if user_signed_in? && current_user.admin? %>
+      <% if user_signed_in? && current_user.can_view_employees? %>
         <div class="flex items-center group relative">
-          <span class="text-green-950 font-medium cursor-default">Admin</span>
+          <span class="text-green-950 font-medium cursor-default">
+            <%= current_user.admin? ? "Admin" : "HR" %>
+          </span>
           <div class="flex items-center overflow-hidden max-w-0 opacity-0 transition-all duration-300 ease-in-out group-hover:max-w-xs group-hover:opacity-100">
             <span class="text-green-950 font-medium mx-2">|</span>
             <%= link_to "Employees", "/employees", class: "text-green-950 hover:text-green-900 font-medium whitespace-nowrap" %>

@@ -63,20 +63,24 @@
     <% end %>
   </td>
   
-  <!-- Delete Column -->
-  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
-    <% if current_user.id != employee.id %>
-      <button type="button" 
-              data-action="click->delete-confirmation#showConfirmation"
-              class="inline-block p-2 rounded-md border border-transparent hover:bg-red-50 hover:border-red-300 transition-all">
-        <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5 text-red-600" } %>
-      </button>
-    <% end %>
-  </td>
+   <!-- Delete Column -->
+   <% if current_user&.admin? %>
+     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
+       <% if current_user.id != employee.id && current_user.can_delete_employees? %>
+         <button type="button" 
+                 data-action="click->delete-confirmation#showConfirmation"
+                 class="inline-block p-2 rounded-md border border-transparent hover:bg-red-50 hover:border-red-300 transition-all">
+           <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5 text-red-600" } %>
+         </button>
+       <% end %>
+     </td>
+   <% end %>
 </tr>
+<% if current_user.can_delete_employees? %>
+  <%= render 'shared/confirmation_row', 
+      item_id: employee.id,
+      item_name: employee_name,
+      delete_path: employee_path(employee),
+      colspan: 6 %>
+<% end %>
 
-<%= render 'shared/confirmation_row', 
-    item_id: employee.id,
-    item_name: employee_name,
-    delete_path: employee_path(employee),
-    colspan: 6 %>

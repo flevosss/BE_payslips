@@ -1,6 +1,6 @@
 class PayslipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
+  before_action :check_admin_or_hr
 
   def index
   end
@@ -13,8 +13,5 @@ class PayslipsController < ApplicationController
 
   private
 
-  def check_admin
-    redirect_to root_path, alert: "You are not authorized to access this page" unless current_user.admin?
-  end
 end
   

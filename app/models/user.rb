@@ -15,4 +15,16 @@ class User < ApplicationRecord
   def set_default_role 
     self.role ||= :employee #set the default role to employee if the user is new
   end
+
+  def hr?
+    employee&.department == "Human Resources"
+  end
+
+  def can_view_employees?
+    admin? || hr?
+  end
+
+  def can_delete_employees?
+    admin?
+  end
 end
