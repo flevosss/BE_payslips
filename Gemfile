@@ -70,3 +70,5 @@ gem "tailwindcss-rails", "~> 4.3"
 
 gem "heroicons"
 gem "kaminari"
+gem "prawn"
+gem "prawn-table" #for pdf.table()

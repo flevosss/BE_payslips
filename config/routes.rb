@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resource :my_profile, only: [:show, :edit, :update], controller: 'my_profile' #could also change the controller name to profiles because it automatically pluralizes it and doesnt find the controller named 
   
   # Admin payslips management
-  resources :payslips, only: [:index, :new, :create]
+  resources :payslips, only: [:index, :new, :create, :show]
   
   # Root path
   root "dashboard#index"

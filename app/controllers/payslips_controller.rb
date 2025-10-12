@@ -7,6 +7,21 @@ class PayslipsController < ApplicationController
     @payslips = search_payslips(@payslips) if params[:query].present?
   end
 
+  def show
+    @payslip = Payslip.includes(:employee, :generated_by).find(params[:id]) #find the payslip by id
+    
+    respond_to do |format|
+      format.html { redirect_to payslips_path } #if the user tries to access the pdf directly, redirect to the payslips index page
+      format.pdf do
+        pdf = PayslipPdfGenerator.new(@payslip).generate
+        send_data pdf, 
+                  filename: generate_pdf_filename,
+                  type: 'application/pdf',
+                  disposition: 'attachment' #force the browser to download the pdf
+      end
+    end
+  end
+
   def new
     @employees = Employee.includes(:user).order(:first_name, :last_name)
     @employees = search_employees(@employees) if params[:query].present?
@@ -49,6 +64,11 @@ class PayslipsController < ApplicationController
 
   def payslip_params
     params.require(:payslip).permit(:employee_id, :date, :start_period, :end_period, :pay_date, :salary, :notes)
+  end
+
+  def generate_pdf_filename
+    base_name = "payslip_#{@payslip.unique_number}_#{@payslip.employee.first_name}_#{@payslip.employee.last_name}"
+    "#{base_name.parameterize(separator: '_')}.pdf"
   end
 end
   

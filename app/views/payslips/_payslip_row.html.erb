@@ -29,3 +29,10 @@
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
     <%= payslip.date.strftime("%b %d, %Y") %>
   </td>
+  
+  <!-- Download Column -->
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+    <%= link_to payslip_path(payslip, format: :pdf), class: "inline-block p-2 rounded-md border border-transparent hover:bg-green-50 hover:border-green-300 transition-all" do %>
+      <%= heroicon "arrow-down-tray", variant: :outline, options: { class: "w-5 h-5 text-green-900" } %>
+    <% end %>
+  </td>
