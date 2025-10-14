@@ -7,10 +7,15 @@ export default class extends Controller {
     // Stop event propagation to prevent other click handlers
     event.stopPropagation()
     
-    // Remove selected class from all rows
-    document.querySelectorAll('.employee-row').forEach(row => {
-      row.classList.remove('bg-green-50', 'border-l-4', 'border-green-950')
-    })
+    // Find the table body to scope the deselection
+    const tableBody = this.element.closest('tbody')
+    
+    // Remove selected class from all rows in the same table
+    if (tableBody) {
+      tableBody.querySelectorAll('tr[data-controller*="row-select"]').forEach(row => {
+        row.classList.remove('bg-green-50', 'border-l-4', 'border-green-950')
+      })
+    }
     
     // Add selected class to clicked row
     this.element.classList.add('bg-green-50', 'border-l-4', 'border-green-950')
