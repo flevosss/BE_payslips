@@ -1,14 +1,23 @@
+<% 
+  # Set default values for optional parameters
+  show_create_button = local_assigns.fetch(:show_create_button, false)
+  search_path = local_assigns.fetch(:search_path, payslips_path)
+  title = local_assigns.fetch(:title, "Payslips")
+%>
+
 <div class="bg-white rounded-2xl shadow-xl p-8">
   <div class="flex justify-between items-center mb-6">
-    <h3 class="text-2xl font-bold text-green-900">Payslips Management</h3>
-    <%= link_to new_payslip_path, class: "bg-green-900 text-white px-6 py-3 rounded-md hover:bg-green-800 transition-colors font-medium" do %>
-      <%= heroicon "plus", variant: :outline, options: { class: "w-5 h-5 mr-2 inline" } %>
-      Create Payslip
+    <h3 class="text-2xl font-bold text-green-900"><%= title %></h3>
+    <% if show_create_button %>
+      <%= link_to new_payslip_path, class: "bg-green-900 text-white px-6 py-3 rounded-md hover:bg-green-800 transition-colors font-medium" do %>
+        <%= heroicon "plus", variant: :outline, options: { class: "w-5 h-5 mr-2 inline" } %>
+        Create Payslip
+      <% end %>
     <% end %>
   </div>
   
   <%= render 'shared/search_bar', 
-      search_path: payslips_path,
+      search_path: search_path,
       placeholder: "Search by anything...",
       centered: true %>
   

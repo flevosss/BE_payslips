@@ -1,4 +1,8 @@
 <div class="max-w-7xl mx-auto py-12">
   <!-- Payslips Management Card -->
-  <%= render 'payslips/payslips_management_card', payslips: @payslips %>
+  <%= render 'payslips/payslips_management_card', 
+      payslips: @payslips,
+      show_create_button: true,
+      search_path: payslips_path,
+      title: "Payslips" %>
 </div>
