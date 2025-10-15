@@ -15,18 +15,7 @@ class VacationRequest < ApplicationRecord
     (end_date - start_date).to_i + 1
   end
 
-  def status_badge_class
-    case status
-    when 'pending'
-      'bg-yellow-100 text-yellow-800'
-    when 'approved'
-      'bg-green-100 text-green-800'
-    when 'rejected'
-      'bg-red-100 text-red-800'
-    end
-  end
-
-  def leave_type_display #this is a helper method to display the leave type in a human readable format
+  def leave_type_display
     leave_type.humanize
   end
 

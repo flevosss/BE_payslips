@@ -19,6 +19,14 @@ Rails.application.routes.draw do
   # Admin payslips management
   resources :payslips, only: [:index, :new, :create, :show]
   
+  # Admin leave requests management (Admin only)
+  resources :admin_leaves, only: [:index] do
+    member do
+      patch :approve
+      patch :reject
+    end
+  end
+  
   # Root path
   root "dashboard#index"
 

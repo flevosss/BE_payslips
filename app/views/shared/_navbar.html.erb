@@ -18,6 +18,10 @@
             <%= link_to "Employees", "/employees", class: "text-green-950 hover:text-green-900 font-medium whitespace-nowrap" %>
             <span class="text-green-950 font-medium mx-2">|</span>
             <%= link_to "Payslips", "/payslips", class: "text-green-950 hover:text-green-900 font-medium whitespace-nowrap" %>
+            <% if current_user.admin? %>
+              <span class="text-green-950 font-medium mx-2">|</span>
+              <%= link_to "Leave Requests", admin_leaves_path, class: "text-green-950 hover:text-green-900 font-medium whitespace-nowrap" %>
+            <% end %>
           </div>
         </div>
       <% end %>

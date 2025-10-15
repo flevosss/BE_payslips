@@ -1,0 +1,70 @@
+<div class="max-w-7xl mx-auto py-12">
+  <!-- Leave Requests Card -->
+  <div class="bg-white rounded-2xl shadow-xl p-8">
+    <h3 class="text-2xl font-bold text-green-900 mb-6">Leave Requests</h3>
+    
+    <!-- Search Bar -->
+    <%= render 'shared/search_bar', 
+        search_path: admin_leaves_path(status: params[:status]),
+        placeholder: "Search by employee, department, reason...",
+        centered: true %>
+    
+    <!-- Filter Tabs & Requests List -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="flex border-b border-gray-200">
+        <%= link_to admin_leaves_path(status: 'pending', query: params[:query]), 
+            class: "flex-1 text-center px-4 py-3 text-sm font-medium #{params[:status] == 'pending' || params[:status].blank? ? 'text-green-900 border-b-2 border-green-900' : 'text-gray-600 hover:text-gray-900'}" do %>
+          Needs Action (<%= VacationRequest.pending.count %>)
+        <% end %>
+
+        <%= link_to admin_leaves_path(status: 'handled', query: params[:query]), 
+            class: "flex-1 text-center px-4 py-3 text-sm font-medium #{params[:status] == 'handled' ? 'text-green-900 border-b-2 border-green-900' : 'text-gray-600 hover:text-gray-900'}" do %>
+          Handled (<%= VacationRequest.approved.count + VacationRequest.rejected.count %>)
+        <% end %>
+      </div>
+
+      <!-- Requests List -->
+      <% if @vacation_requests.any? %>
+        <div class="divide-y divide-gray-200">
+          <% @vacation_requests.each do |request| %>
+            <%= render 'shared/request_row', request: request, show_employee: true, show_actions: true %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-12 px-6">
+          <p class="text-gray-500">
+            <% if params[:query].present? %>
+              No requests found matching your search.
+            <% elsif params[:status] == 'handled' %>
+              No handled requests yet.
+            <% else %>
+              No active requests.
+            <% end %>
+        </p>
+      </div>
+    <% end %>
+    </div>
+    
+    <!-- Pagination -->
+    <% if @vacation_requests.respond_to?(:current_page) && @vacation_requests.total_pages > 1 %>
+      <div class="flex items-center justify-center mt-6 pt-6 border-t border-gray-200">
+        <div class="flex items-center space-x-2">
+          <% if @vacation_requests.current_page > 1 %>
+            <%= link_to "← Previous", admin_leaves_path(page: @vacation_requests.current_page - 1, status: params[:status], query: params[:query]), 
+                class: "px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200" %>
+          <% end %>
+          
+          <span class="px-4 py-2 text-sm bg-green-900 text-white rounded-md">
+            Page <%= @vacation_requests.current_page %> of <%= @vacation_requests.total_pages %>
+          </span>
+          
+          <% if @vacation_requests.current_page < @vacation_requests.total_pages %>
+            <%= link_to "Next →", admin_leaves_path(page: @vacation_requests.current_page + 1, status: params[:status], query: params[:query]), 
+                class: "px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

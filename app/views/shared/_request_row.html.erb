@@ -1,50 +1,100 @@
 <% 
   # Parameters:
   # request: VacationRequest object to display
+  # show_employee: Show employee name/avatar (for admin view)
+  # show_actions: Show approve/reject buttons (for admin view)
   
   request = local_assigns[:request]
+  status_config = REQUEST_STATUSES[request.status] || {}
+  leave_type_config = LEAVE_TYPES[request.leave_type] || {}
+  show_employee = local_assigns.fetch(:show_employee, false)
+  show_actions = local_assigns.fetch(:show_actions, false)
 %>
 
-<div class="p-6 hover:bg-gray-50 transition-all duration-200">
-  <div class="flex items-start justify-between mb-4">
+<div class="p-3 hover:bg-green-50 transition-all duration-200">
+  <div class="flex items-start justify-between mb-1.5">
     <div class="flex items-start space-x-4">
-      <% if request.status == 'pending' %>
-        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-yellow-50 border border-yellow-200 flex items-center justify-center">
-          <%= heroicon "clock", variant: :solid, options: { class: "w-5 h-5 text-yellow-600" } %>
-        </div>
-      <% elsif request.status == 'approved' %>
-        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-green-50 border border-green-200 flex items-center justify-center">
-          <%= heroicon "check-circle", variant: :solid, options: { class: "w-5 h-5 text-green-600" } %>
+      <% if show_employee %>
+        <!-- Profile Picture -->
+        <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+          <%= request.employee.first_name[0].upcase %><%= request.employee.last_name[0].upcase %>
         </div>
       <% else %>
-        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center">
-          <%= heroicon "x-circle", variant: :solid, options: { class: "w-5 h-5 text-red-600" } %>
-        </div>
+        <%= heroicon status_config[:icon], variant: :solid, options: { class: "w-5 h-5 #{status_config[:icon_color]} flex-shrink-0" } %>
       <% end %>
       
       <div class="flex-1">
+        <% if show_employee %>
+          <!-- Employee Name -->
+          <div class="mb-1">
+            <span class="font-semibold text-gray-900">
+              <%= request.employee.first_name %> <%= request.employee.last_name %>
+            </span>
+          </div>
+        <% end %>
+        
         <div class="flex items-center flex-wrap gap-2 mb-1">
-          <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold <%= request.status_badge_class %>">
-            <%= request.status.titleize %>
-          </span>
-          <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800">
+          <% if show_employee %>
+            <!-- Always show status badge in admin view -->
+            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold <%= status_config[:badge_class] %>">
+              <%= request.status.titleize %>
+            </span>
+          <% elsif !show_employee %>
+            <!-- Always show status badge in employee view -->
+            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold <%= status_config[:badge_class] %>">
+              <%= request.status.titleize %>
+            </span>
+          <% end %>
+          <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium <%= leave_type_config[:badge_class] %>">
             <%= request.leave_type_display %>
           </span>
-          <div class="flex items-center bg-gray-100 text-gray-700 px-2.5 py-1 rounded-md">
+          <div class="flex items-center bg-green-950 text-white px-2.5 py-1 rounded-md border border-green-950">
             <%= heroicon "calendar", variant: :mini, options: { class: "w-3.5 h-3.5 mr-1" } %>
             <span class="text-xs font-semibold"><%= request.days_count %></span>
             <span class="text-xs ml-0.5"><%= request.days_count == 1 ? 'day' : 'days' %></span>
           </div>
         </div>
         
-        <p class="text-xs text-gray-500">
+        <p class="text-xs text-gray-500 mt-1">
           Submitted on <%= request.created_at.strftime("%B %d, %Y") %>
         </p>
       </div>
     </div>
+    
+    <!-- Action Dropdown (Admin Only) -->
+    <% if show_actions %>
+      <div class="relative" data-controller="dropdown">
+        <button type="button" data-action="click->dropdown#toggle click@window->dropdown#hide" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <%= heroicon "ellipsis-vertical", variant: :outline, options: { class: "w-5 h-5 text-gray-600" } %>
+        </button>
+        
+        <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+          <%= button_to approve_admin_leafe_path(request), 
+              method: :patch,
+              class: "w-full text-left px-4 py-2.5 text-sm text-green-700 hover:bg-green-50 flex items-center transition-colors rounded-t-lg" do %>
+            <%= heroicon "check", variant: :mini, options: { class: "w-4 h-4 mr-2" } %>
+            Approve
+          <% end %>
+          
+          <%= button_to reject_admin_leafe_path(request), 
+              method: :patch,
+              class: "w-full text-left px-4 py-2.5 text-sm text-red-700 hover:bg-red-50 flex items-center transition-colors rounded-b-lg" do %>
+            <%= heroicon "x-mark", variant: :mini, options: { class: "w-4 h-4 mr-2" } %>
+            Reject
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
   
-  <div class="ml-15 space-y-2.5">
+  <div class="<%= show_employee ? 'ml-14' : 'ml-9' %> space-y-1">
+    <% if show_employee %>
+      <div class="flex items-center">
+        <%= heroicon "building-office-2", variant: :mini, options: { class: "w-4 h-4 text-gray-400 mr-2" } %>
+        <span class="text-sm text-gray-600"><%= request.employee.department %></span>
+      </div>
+    <% end %>
+    
     <div class="flex items-center">
       <%= heroicon "calendar-days", variant: :mini, options: { class: "w-4 h-4 text-gray-400 mr-2" } %>
       <span class="text-sm text-gray-900 font-medium">
