@@ -1,20 +1,17 @@
-services:
-  # PostgreSQL Database
-  - type: pserv
-    name: bookingexperts-db
-    env: ruby
+# PostgreSQL Database
+databases:
+  - name: bookingexperts-db
+    databaseName: bookingexperts_production
+    user: bookingexperts
     plan: free # Change to 'starter' or higher for production
-    region: oregon # Change to your preferred region
-    databases:
-      - name: bookingexperts_production
-        databaseName: bookingexperts_production
-        user: bookingexperts
+    region: frankfurt # EU region (close to Netherlands)
 
-  # Rails Web Application
+# Rails Web Application
+services:
   - type: web
     name: bookingexperts-web
     env: ruby
-    region: oregon # Change to your preferred region
+    region: frankfurt # EU region (close to Netherlands)
     plan: free # Change to 'starter' or higher for production
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
