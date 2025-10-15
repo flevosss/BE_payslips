@@ -1,0 +1,24 @@
+# Ignore local development files
+.env*
+.DS_Store
+
+# Ignore docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore test files
+test/
+spec/
+
+# Ignore logs
+log/*
+tmp/*
+
+# Ignore local storage
+storage/*
+
