@@ -2,8 +2,8 @@
 # exit on error
 set -o errexit
 
-echo "Running database migrations..."
-bundle exec rails db:migrate
+echo "Preparing database (runs all migrations)..."
+bundle exec rails db:prepare
 
 echo "Seeding database..."
 bundle exec rails db:seed
