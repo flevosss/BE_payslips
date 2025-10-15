@@ -64,20 +64,5 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary:
-    <<: *default
-    database: bookingexperts_production
-    username: bookingexperts
-    password: <%= ENV["BOOKINGEXPERTS_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *default
-    database: bookingexperts_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *default
-    database: bookingexperts_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *default
-    database: bookingexperts_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
