@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_11_001943) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_14_232236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,8 +68,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_11_001943) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vacation_requests", force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.text "reason"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "leave_type", default: 0, null: false
+    t.index ["employee_id"], name: "index_vacation_requests_on_employee_id"
+  end
+
   add_foreign_key "account_infos", "employees"
   add_foreign_key "employees", "users"
   add_foreign_key "payslips", "employees"
   add_foreign_key "payslips", "users", column: "generated_by_id"
+  add_foreign_key "vacation_requests", "employees"
 end

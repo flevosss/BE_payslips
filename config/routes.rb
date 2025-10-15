@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # User pages
   get "my_payslips", to: "my_payslips#index"
   get "request", to: "request#index"
+  post "request", to: "request#create_leave_request"
   resource :my_profile, only: [:show, :edit, :update], controller: 'my_profile' #could also change the controller name to profiles because it automatically pluralizes it and doesnt find the controller named 
   
   # Admin payslips management

@@ -3,6 +3,7 @@ class Employee < ApplicationRecord
 
     has_one :account_info, dependent: :destroy #has one account info, if the employee is deleted, the account info is also deleted
     has_many :payslips, dependent: :destroy
+    has_many :vacation_requests, dependent: :destroy
 
     validates :first_name, presence: true
     validates :last_name, presence: true
