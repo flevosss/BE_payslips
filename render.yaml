@@ -14,6 +14,7 @@ services:
     region: frankfurt # EU region (close to Netherlands)
     plan: free # Change to 'starter' or higher for production
     buildCommand: "./bin/render-build.sh"
+    preDeployCommand: "bundle exec rails db:migrate"
     startCommand: "bundle exec puma -C config/puma.rb"
     healthCheckPath: /
     envVars:
@@ -24,7 +25,7 @@ services:
       - key: RAILS_ENV
         value: production
       - key: RAILS_MASTER_KEY
-        sync: false # You'll need to add this manually in Render dashboard
+        sync: false 
       - key: RAILS_LOG_TO_STDOUT
         value: enabled
       - key: RAILS_SERVE_STATIC_FILES
