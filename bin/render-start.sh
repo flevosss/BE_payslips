@@ -5,6 +5,9 @@ set -o errexit
 echo "Running database migrations..."
 bundle exec rails db:migrate
 
+echo "Seeding database..."
+bundle exec rails db:seed
+
 echo "Starting Rails server..."
 bundle exec puma -C config/puma.rb
 
