@@ -14,8 +14,7 @@ services:
     region: frankfurt # EU region (close to Netherlands)
     plan: free # Change to 'starter' or higher for production
     buildCommand: "./bin/render-build.sh"
-    preDeployCommand: "bundle exec rails db:migrate"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    startCommand: "./bin/render-start.sh"
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
