@@ -25,5 +25,9 @@ bundle exec rails db:migrate
 echo "Seeding database..."
 bundle exec rails db:seed || true
 
+# Build Tailwind CSS
+echo "Building Tailwind CSS..."
+bundle exec rails tailwindcss:build || true
+
 # Execute the main command
 exec "$@"
