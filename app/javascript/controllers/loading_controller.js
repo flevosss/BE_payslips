@@ -7,13 +7,17 @@ export default class extends Controller {
     
     // Listen for Turbo navigation events
     document.addEventListener('turbo:before-visit', this.showSpinner.bind(this))
+    document.addEventListener('turbo:submit-start', this.showSpinner.bind(this))
     document.addEventListener('turbo:load', this.hideSpinner.bind(this))
+    document.addEventListener('turbo:submit-end', this.hideSpinner.bind(this))
     document.addEventListener('turbo:render', this.hideSpinner.bind(this))
   }
 
   disconnect() {
     document.removeEventListener('turbo:before-visit', this.showSpinner.bind(this))
+    document.removeEventListener('turbo:submit-start', this.showSpinner.bind(this))
     document.removeEventListener('turbo:load', this.hideSpinner.bind(this))
+    document.removeEventListener('turbo:submit-end', this.hideSpinner.bind(this))
     document.removeEventListener('turbo:render', this.hideSpinner.bind(this))
   }
 
