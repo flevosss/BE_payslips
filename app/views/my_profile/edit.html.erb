@@ -1,5 +1,4 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <!-- Back Button -->
   <div class="mb-6">
     <%= link_to my_profile_path, class: "inline-flex items-center text-sm text-gray-600 hover:text-gray-900" do %>
       <%= heroicon "arrow-left", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
@@ -9,7 +8,6 @@
 
   <%= form_with model: @user.employee, url: my_profile_path, method: :patch, local: true do |f| %>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Personal Information Card -->
       <%= render 'shared/info_card', title: 'Personal Information', icon: 'user-circle' do %>
         <div class="space-y-4">
           <div>
@@ -64,7 +62,6 @@
         </div>
       <% end %>
 
-      <!-- Contact Information Card -->
       <%= render 'shared/info_card', title: 'Contact Information', icon: 'map-pin' do %>
         <div class="space-y-4">
           <div>
@@ -94,7 +91,6 @@
         </div>
       <% end %>
 
-      <!-- Bank Account Information Card -->
       <%= render 'shared/info_card', title: 'Bank Account Information', icon: 'credit-card' do %>
         <%= f.fields_for :account_info do |account_fields| %>
           <div class="space-y-4">
@@ -121,7 +117,6 @@
       <% end %>
     </div>
 
-    <!-- Action Buttons -->
     <div class="flex gap-3 mt-6">
       <%= f.submit "Save Changes", 
           class: "bg-green-900 text-white px-6 py-2 rounded-md hover:bg-green-800 transition-colors font-medium" %>

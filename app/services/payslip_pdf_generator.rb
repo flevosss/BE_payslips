@@ -19,15 +19,12 @@ class PayslipPdfGenerator
   private
 
   def add_header
-    # PAYSLIP title centered
     @pdf.text "PAYSLIP", size: 36, style: :bold, align: :center
     @pdf.move_down 10
     
-    # Payslip ID below in smaller font
     @pdf.text @payslip.unique_number, size: 12, align: :center
     @pdf.move_down 15
     
-    # Horizontal line
     @pdf.stroke_horizontal_rule
     @pdf.move_down 40
   end
@@ -35,7 +32,6 @@ class PayslipPdfGenerator
   def add_employee_and_details
     start_y = @pdf.cursor
     
-    # Left column - Employee info
     @pdf.bounding_box([0, start_y], width: @pdf.bounds.width * 0.5) do
       @pdf.text "EMPLOYEE:", size: 11, style: :bold
       @pdf.move_down 10
@@ -46,7 +42,6 @@ class PayslipPdfGenerator
       @pdf.text "Department: #{@employee.department || 'No department'}", size: 10
     end
     
-    # Right column - Payslip details (right aligned)
     @pdf.bounding_box([@pdf.bounds.width * 0.5, start_y], width: @pdf.bounds.width * 0.5) do
       @pdf.text "DATE:", size: 10, style: :bold, align: :right
       @pdf.move_down 5
@@ -62,7 +57,6 @@ class PayslipPdfGenerator
   end
 
   def add_salary_table
-    # Table with proper headers and data
     table_data = [
       ["DESCRIPTION", "AMOUNT"],
       ["Salary", "€#{format_currency(@payslip.salary)}"]
@@ -84,11 +78,9 @@ class PayslipPdfGenerator
     
     @pdf.move_down 30
     
-    # Horizontal line before totals
     @pdf.stroke_horizontal_line(0, @pdf.bounds.width)
     @pdf.move_down 20
     
-    # Total - right aligned
     @pdf.text "TOTAL   €#{format_currency(@payslip.salary)}", size: 12, style: :bold, align: :right
     
     @pdf.move_down 40

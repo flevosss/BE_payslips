@@ -1,5 +1,4 @@
 <%
-  # Map flash keys to toast types
   flash_type_map = {
     notice: 'success',
     success: 'success',
@@ -8,7 +7,6 @@
     info: 'info'
   }
   
-  # Get all active flash messages
   active_flashes = flash_type_map.select { |key, _| flash[key].present? }
 %>
 

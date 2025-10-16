@@ -1,8 +1,5 @@
 <% employee_name = employee.employee&.first_name.present? && employee.employee&.last_name.present? ? "#{employee.employee.first_name} #{employee.employee.last_name}" : employee.email %>
 
-<!-- Employee Row Content -->
-  
-  <!-- Name Column -->
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm font-medium text-gray-900">
       <% if employee.employee&.first_name.present? && employee.employee&.last_name.present? %>
@@ -16,12 +13,10 @@
     </div>
   </td>
   
-  <!-- Email Column -->
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="text-sm text-gray-900"><%= employee.email %></div>
   </td>
   
-  <!-- Department Column -->
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="flex items-center text-sm text-gray-900">
       <% if employee.employee&.department.present? %>
@@ -34,7 +29,6 @@
     </div>  
   </td>
   
-  <!-- Role Column -->
   <td class="px-6 py-4 whitespace-nowrap">
     <div class="flex items-center text-sm text-gray-900">
       <% if employee.role.present? %>
@@ -52,25 +46,21 @@
     </div>
   </td>
   
-  <!-- Profile Column -->
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
     <%= link_to employee_path(employee), class: "inline-block p-2 rounded-md border border-transparent hover:bg-gray-50 hover:border-black transition-all" do %>
       <%= heroicon "eye", variant: :outline, options: { class: "w-5 h-5" } %>
     <% end %>
   </td>
   
-   <!-- Delete Column -->
    <% if current_user&.admin? %>
      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
        <% if current_user.id == employee.id %>
-         <!-- Disabled delete button for current user -->
          <button type="button" 
                  disabled
                  class="inline-block p-2 rounded-md border border-transparent cursor-not-allowed opacity-50">
            <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5 text-gray-400" } %>
          </button>
        <% elsif current_user.can_delete_employees? %>
-         <!-- Active delete button -->
          <button type="button" 
                  data-action="click->delete-confirmation#showConfirmation"
                  class="inline-block p-2 rounded-md border border-transparent hover:bg-red-50 hover:border-red-300 transition-all">
@@ -79,4 +69,3 @@
        <% end %>
      </td>
    <% end %>
-

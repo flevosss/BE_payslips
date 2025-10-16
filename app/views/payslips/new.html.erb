@@ -1,21 +1,17 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-controller="employee-select">
-  <!-- Header -->
 
-  <!-- Payslip Form -->
+
   <div class="bg-white rounded-2xl shadow-xl p-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       
-      <!-- Employee Selection -->
       <div class="space-y-6 border-r border-gray-200 pr-8">
         <h3 class="text-xl font-semibold text-gray-900 mb-4">Select Employee</h3>
         
-        <!-- Search Bar -->
         <%= render 'shared/search_bar', 
             search_path: new_payslip_path,
             placeholder: "Search employees...",
             centered: false %>
         
-        <!-- Employee List -->
         <div class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
           <% @employees.each do |employee| %>
             <div data-action="click->employee-select#selectEmployee"
@@ -31,15 +27,12 @@
         </div>
       </div>
 
-      <!-- Payslip Details -->
       <%= form_with model: @payslip, url: payslips_path, method: :post, local: true, class: "lg:col-span-2" do |f| %>
-        <!-- Hidden field for employee_id -->
         <%= f.hidden_field :employee_id, value: @payslip.employee_id, data: { employee_select_target: "hiddenField" }, required: true %>
         
         <div class="space-y-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Payslip Details</h3>
           
-          <!-- Placeholder message when no employee selected -->
           <div data-employee-select-target="placeholder" class="flex items-center justify-center min-h-[500px]" style="<%= @payslip.employee_id.present? ? 'display: none;' : '' %>">
             <div class="text-center">
               <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,9 +43,7 @@
             </div>
           </div>
           
-          <!-- Form fields - shown when employee is selected -->
           <div data-employee-select-target="formFields" class="space-y-6" style="<%= @payslip.employee_id.blank? ? 'display: none;' : '' %>">
-              <!-- Employee Info Display -->
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
                   Selected Employee
@@ -65,7 +56,6 @@
                 </div>
               </div>
               
-          <!-- Date -->
           <div>
             <label for="payslip_date" class="block text-sm font-medium text-gray-700 mb-2">
               Payslip Date <span class="text-red-600">*</span>
@@ -89,7 +79,6 @@
             <% end %>
           </div>
 
-          <!-- Pay Period -->
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label for="payslip_start_period" class="block text-sm font-medium text-gray-700 mb-2">
@@ -137,7 +126,6 @@
             </div>
           </div>
 
-          <!-- Pay Date -->
           <div>
             <label for="payslip_pay_date" class="block text-sm font-medium text-gray-700 mb-2">
               Pay Date <span class="text-red-600">*</span>
@@ -161,7 +149,6 @@
             <% end %>
           </div>
 
-          <!-- Salary -->
           <div>
             <label for="payslip_salary" class="block text-sm font-medium text-gray-700 mb-2">
               Salary Amount <span class="text-red-600">*</span>
@@ -178,7 +165,6 @@
             </div>
           </div>
 
-          <!-- Notes -->
           <div>
             <label for="payslip_notes" class="block text-sm font-medium text-gray-700 mb-2">
               Notes <span class="text-red-600">*</span>
@@ -188,7 +174,6 @@
                 class: "w-full resize-none rounded-md border-gray-300 bg-gray-50 shadow-sm focus:border-green-950 focus:bg-white px-3 py-2.5" %>
           </div>
           
-          <!-- Action Buttons -->
           <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200 justify-center">
             <%= f.submit "Create Payslip", 
                 class: "bg-green-900 text-white px-8 py-3 rounded-md hover:bg-green-800 transition-colors font-medium text-lg" %>
@@ -196,7 +181,7 @@
                 payslips_path, 
                 class: "bg-gray-200 text-gray-700 px-8 py-3 rounded-md hover:bg-gray-300 transition-colors font-medium text-lg" %>
           </div>
-          </div><!-- End of formFields -->
+          </div>
         </div>
       <% end %>
     </div>

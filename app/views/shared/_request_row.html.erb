@@ -15,7 +15,6 @@
   <div class="flex items-start justify-between mb-1.5">
     <div class="flex items-start space-x-4">
       <% if show_employee %>
-        <!-- Profile Picture -->
         <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
           <%= request.employee.first_name[0].upcase %><%= request.employee.last_name[0].upcase %>
         </div>
@@ -25,7 +24,6 @@
       
       <div class="flex-1">
         <% if show_employee %>
-          <!-- Employee Name -->
           <div class="mb-1">
             <span class="font-semibold text-gray-900">
               <%= request.employee.first_name %> <%= request.employee.last_name %>
@@ -35,12 +33,10 @@
         
         <div class="flex items-center flex-wrap gap-2 mb-1">
           <% if show_employee %>
-            <!-- Always show status badge in admin view -->
             <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold <%= status_config[:badge_class] %>">
               <%= request.status.titleize %>
             </span>
           <% elsif !show_employee %>
-            <!-- Always show status badge in employee view -->
             <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold <%= status_config[:badge_class] %>">
               <%= request.status.titleize %>
             </span>
@@ -61,7 +57,6 @@
       </div>
     </div>
     
-    <!-- Action Dropdown (Admin Only) -->
     <% if show_actions %>
       <div class="relative" data-controller="dropdown">
         <button type="button" data-action="click->dropdown#toggle click@window->dropdown#hide" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">

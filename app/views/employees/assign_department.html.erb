@@ -1,5 +1,4 @@
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <!-- Back Button -->
   <div class="mb-6">
     <%= link_to employee_path(@user), class: "inline-flex items-center text-sm text-gray-600 hover:text-gray-900" do %>
       <%= heroicon "arrow-left", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
@@ -7,8 +6,7 @@
     <% end %>
   </div>
 
-  <!-- Assign Department Form Card -->
-  <div class="bg-white shadow rounded-lg overflow-hidden">
+  <div class="bg-white shadow rounded-lg overflow-visible">
     <div class="px-6 py-4 bg-green-900 border-b border-green-800">
       <h2 class="text-lg font-semibold text-white flex items-center">
         <%= heroicon "building-office-2", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>

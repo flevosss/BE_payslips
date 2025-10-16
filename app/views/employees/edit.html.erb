@@ -1,5 +1,4 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <!-- Back Button -->
   <div class="mb-6">
     <%= link_to employee_path(@user), class: "inline-flex items-center text-sm text-gray-600 hover:text-gray-900" do %>
       <%= heroicon "arrow-left", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
@@ -9,7 +8,6 @@
 
   <%= form_with model: @user, url: employee_path(@user), method: :patch, local: true do |f| %>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Role Card -->
       <%= render 'shared/info_card', title: 'Role', icon: 'shield-check' do %>
         <%= f.label :role, "Assign Role", class: "block text-sm font-medium text-gray-500 mb-2" %>
         <%= render RubyUI::Select.new do %>
@@ -26,7 +24,6 @@
         <% end %>
       <% end %>
 
-      <!-- Department Card -->
       <%= f.fields_for :employee do |employee_fields| %>
         <%= render 'shared/info_card', title: 'Department', icon: 'building-office-2' do %>
           <%= employee_fields.label :department, "Assign Department", class: "block text-sm font-medium text-gray-500 mb-2" %>
@@ -47,7 +44,6 @@
       <% end %>
     </div>
 
-    <!-- Action Buttons -->
     <div class="flex gap-3 mt-6">
       <%= f.submit "Save Changes", 
           class: "bg-green-900 text-white px-6 py-2 rounded-md hover:bg-green-800 transition-colors font-medium" %>

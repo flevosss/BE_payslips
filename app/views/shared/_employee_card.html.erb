@@ -1,10 +1,5 @@
 <%
-  # Parameters:
-  # employee: Employee object
-  # selected: Boolean indicating if this employee is selected
-  
-  selected ||= false
-  
+  selected ||= false # Boolean indicating if this employee is selected
   # Get initials and full name
   initials = "#{employee.first_name[0]}#{employee.last_name[0]}".upcase
   full_name = "#{employee.first_name} #{employee.last_name}"
@@ -12,12 +7,10 @@
 
 <div class="flex items-center p-4 rounded-lg border-2 <%= selected ? 'bg-green-50/80 backdrop-blur-sm border-green-950' : 'bg-white border-gray-200' %> hover:border-green-900 transition-all cursor-pointer">
   
-  <!-- Circle with initials -->
   <div class="flex-shrink-0 w-12 h-12 bg-green-900 text-white rounded-full flex items-center justify-center font-semibold text-sm">
     <%= initials %>
   </div>
   
-  <!-- Name and Email -->
   <div class="ml-4 flex-1 min-w-0">
     <p class="text-sm font-medium text-gray-900 truncate">
       <%= full_name %>

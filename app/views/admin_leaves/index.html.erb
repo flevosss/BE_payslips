@@ -1,15 +1,12 @@
 <div class="max-w-7xl mx-auto py-12">
-  <!-- Leave Requests Card -->
   <div class="bg-white rounded-2xl shadow-xl p-8">
     <h3 class="text-2xl font-bold text-green-900 mb-6">Leave Requests</h3>
-    
-    <!-- Search Bar -->
+
     <%= render 'shared/search_bar', 
         search_path: admin_leaves_path(status: params[:status]),
         placeholder: "Search by employee, department, reason...",
         centered: true %>
     
-    <!-- Filter Tabs & Requests List -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
       <div class="flex border-b border-gray-200">
         <%= link_to admin_leaves_path(status: 'pending', query: params[:query]), 
@@ -23,7 +20,6 @@
         <% end %>
       </div>
 
-      <!-- Requests List -->
       <% if @vacation_requests.any? %>
         <div class="divide-y divide-gray-200">
           <% @vacation_requests.each do |request| %>
@@ -44,8 +40,7 @@
       </div>
     <% end %>
     </div>
-    
-    <!-- Pagination -->
+            
     <% if @vacation_requests.respond_to?(:current_page) && @vacation_requests.total_pages > 1 %>
       <div class="flex items-center justify-center mt-6 pt-6 border-t border-gray-200">
         <div class="flex items-center space-x-2">

@@ -121,7 +121,9 @@ export default class extends Controller {
   setFloatingElement() {
     this.cleanup = autoUpdate(this.triggerTarget, this.contentTarget, () => {
       computePosition(this.triggerTarget, this.contentTarget, {
-        middleware: [offset(4), flip()],
+        placement: 'bottom-start',
+        // Disable flip so it won't render above; we want it below the trigger
+        middleware: [offset(4)],
       }).then(({ x, y }) => {
         Object.assign(this.contentTarget.style, {
           left: `${x}px`,
