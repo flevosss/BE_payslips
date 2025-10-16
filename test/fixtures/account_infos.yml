@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  employee: one
-  account_number: MyString
-  account_name: MyString
+employee_account:
+  employee: employee_one
+  account_number: NL91ABNA0417164300
+  account_name: Michalis Flevaris
   string: MyString
 
-two:
-  employee: two
-  account_number: MyString
-  account_name: MyString
+admin_account:
+  employee: admin_employee
+  account_number: NL91ABNA0417164301
+  account_name: Flevaris Michalis
   string: MyString

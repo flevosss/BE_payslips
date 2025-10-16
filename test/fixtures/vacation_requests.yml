@@ -1,15 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  employee: one
-  start_date: 2025-10-15
-  end_date: 2025-10-15
-  reason: MyText
-  status: 1
+employee_request:
+  employee: employee_one
+  start_date: 2025-06-01
+  end_date: 2025-06-05
+  reason: Summer vacation
+  status: pending
+  leave_type: vacation
 
-two:
-  employee: two
-  start_date: 2025-10-15
-  end_date: 2025-10-15
-  reason: MyText
-  status: 1
+admin_request:
+  employee: admin_employee
+  start_date: 2025-07-15
+  end_date: 2025-07-20
+  reason: Family trip
+  status: approved
+  leave_type: vacation
