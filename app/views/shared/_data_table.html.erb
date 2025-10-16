@@ -1,22 +1,16 @@
 <%
   # Parameters:
-  # headers: Array of header text/objects with text and optional classes
-  # items: Array of items to display
-  # row_partial: Partial name for rendering each row (e.g., 'employees/employee_row')
-  # item_name: Name for the items (e.g., 'employee' for employee_row partial)
   # empty_message: Message to show when no items
   # empty_icon: Icon to show when no items
   # table_classes: Optional additional classes for the table wrapper
-  
-  # Set defaults for optional parameters
   table_classes ||= ''
   empty_message ||= 'No items found.'
   empty_icon ||= 'document-text'
 %>
 
 <% if items.any? %>
-  <div class="bg-white rounded-2xl shadow-xl overflow-hidden <%= table_classes %>">
-    <div class="overflow-x-auto">
+  <div class="bg-white rounded-2xl shadow-xl <%= table_classes %>">
+    <div class="overflow-x-auto rounded-2xl">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
           <tr>
@@ -35,7 +29,6 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <% items.each do |item| %>
-            <!-- Main Row -->
             <tr class="hover:bg-green-50 hover:border-l-4 hover:border-green-950 <%= item_name %>-row transition-all cursor-pointer" 
                 data-controller="row-select <%= 'delete-confirmation' if item_name == 'employee' && current_user&.can_delete_employees? %>"
                 data-action="click->row-select#selectRow"
