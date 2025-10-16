@@ -3,19 +3,19 @@ databases:
   - name: bookingexperts-db
     databaseName: bookingexperts_production
     user: bookingexperts
-    plan: free # Change to 'starter' or higher for production
-    region: frankfurt # EU region (close to Netherlands)
+    plan: free 
+    region: frankfurt 
 
 # Rails Web Application
 services:
   - type: web
     name: bookingexperts-web
     env: ruby
-    region: frankfurt # EU region (close to Netherlands)
-    plan: free # Change to 'starter' or higher for production
+    region: frankfurt 
+    plan: free 
     buildCommand: "./bin/render-build.sh"
     startCommand: "./bin/render-start.sh"
-    healthCheckPath: /
+    healthCheckPath: /up
     envVars:
       - key: DATABASE_URL
         fromDatabase:
