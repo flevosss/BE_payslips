@@ -3,23 +3,33 @@
   <!-- Employee Header -->
   <div class="bg-white shadow rounded-lg overflow-hidden mb-6">
     <div class="bg-green-900 px-6 py-8">
-      <div class="flex items-center">
-        <div class="flex-shrink-0 h-20 w-20 rounded-full bg-white flex items-center justify-center">
-          <%= heroicon "user", variant: :outline, options: { class: "w-12 h-12 text-green-900" } %>
-        </div>
-        <div class="ml-6 text-white">
-          <h1 class="text-3xl font-bold">
-            <% if user.employee&.first_name.present? && user.employee&.last_name.present? %>
-              <%= user.employee.first_name %> <%= user.employee.last_name %>
-            <% end %>
-          </h1>
-          <p class="text-green-100 mt-1"><%= user.email %></p>
-          <div class="mt-2">
-            <%= render 'shared/status_badge', 
-                type: user.admin? ? 'info' : 'default',
-                text: user.role&.capitalize || 'Not Set' %>
+      <div class="flex items-start justify-between">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 h-20 w-20 rounded-full bg-white flex items-center justify-center">
+            <%= heroicon "user", variant: :outline, options: { class: "w-12 h-12 text-green-900" } %>
+          </div>
+          <div class="ml-6 text-white">
+            <h1 class="text-3xl font-bold">
+              <% if user.employee&.first_name.present? && user.employee&.last_name.present? %>
+                <%= user.employee.first_name %> <%= user.employee.last_name %>
+              <% end %>
+            </h1>
+            <p class="text-green-100 mt-1"><%= user.email %></p>
+            <div class="mt-2">
+              <%= render 'shared/status_badge', 
+                  type: user.admin? ? 'info' : 'default',
+                  text: user.role&.capitalize || 'Not Set' %>
+            </div>
           </div>
         </div>
+        <% if defined?(show_edit_button) && show_edit_button %>
+          <div class="flex-shrink-0">
+            <%= link_to edit_my_profile_path, class: "inline-flex items-center px-4 py-2 bg-white text-green-900 text-sm rounded-md hover:bg-gray-100 transition-colors" do %>
+              <%= heroicon "pencil", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
+              Edit Profile
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

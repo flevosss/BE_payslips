@@ -62,7 +62,15 @@
    <!-- Delete Column -->
    <% if current_user&.admin? %>
      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center" onclick="event.stopPropagation()">
-       <% if current_user.id != employee.id && current_user.can_delete_employees? %>
+       <% if current_user.id == employee.id %>
+         <!-- Disabled delete button for current user -->
+         <button type="button" 
+                 disabled
+                 class="inline-block p-2 rounded-md border border-transparent cursor-not-allowed opacity-50">
+           <%= heroicon "trash", variant: :outline, options: { class: "w-5 h-5 text-gray-400" } %>
+         </button>
+       <% elsif current_user.can_delete_employees? %>
+         <!-- Active delete button -->
          <button type="button" 
                  data-action="click->delete-confirmation#showConfirmation"
                  class="inline-block p-2 rounded-md border border-transparent hover:bg-red-50 hover:border-red-300 transition-all">

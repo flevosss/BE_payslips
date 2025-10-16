@@ -19,14 +19,20 @@
     <div class="px-6 py-6">
       <%= form_with model: @user.employee, url: employee_path(@user), method: :patch, local: true do |f| %>
         <div class="space-y-4">
-          <div>
-            <label for="employee_department" class="block text-sm font-medium text-gray-700 mb-2">
-              Department
-            </label>
-            <%= f.text_field :department, 
-                class: "w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500",
-                placeholder: "Enter department name" %>
-          </div>
+          <%= f.label :department, "Department", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= render RubyUI::Select.new do %>
+            <%= render RubyUI::SelectInput.new(name: "employee[department]", value: @user.employee&.department) %>
+            <%= render RubyUI::SelectTrigger.new do %>
+              <%= render RubyUI::SelectValue.new(placeholder: "Select a department") do %>
+                <%= @user.employee&.department.present? ? @user.employee.department : "Select a department" %>
+              <% end %>
+            <% end %>
+            <%= render RubyUI::SelectContent.new do %>
+              <% DEPARTMENTS.each do |dept| %>
+                <%= render RubyUI::SelectItem.new(value: dept, **{ aria: { selected: (@user.employee&.department == dept).to_s } }) { dept } %>
+              <% end %>
+            <% end %>
+          <% end %>
 
           <div class="flex gap-3 pt-4">
             <%= f.submit "Save Changes", 

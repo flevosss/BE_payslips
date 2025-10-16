@@ -54,6 +54,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "ruby_ui", require: false
 end
 
 group :test do
@@ -72,3 +73,6 @@ gem "heroicons"
 gem "kaminari"
 gem "prawn"
 gem "prawn-table" #for pdf.table()
+
+gem "phlex-rails", "~> 2.3"
+gem "tailwind_merge", "~> 1.3"

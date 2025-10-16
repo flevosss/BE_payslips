@@ -1,0 +1,7 @@
+leave_types:
+  - ['Vacation', 'vacation']
+  - ['Sick Leave', 'sick_leave']
+  - ['Personal Leave', 'personal_leave']
+  - ['Unpaid Leave', 'unpaid_leave']
+  - ['Other', 'other']
+

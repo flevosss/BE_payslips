@@ -11,29 +11,38 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Role Card -->
       <%= render 'shared/info_card', title: 'Role', icon: 'shield-check' do %>
-        <div>
-          <label for="user_role" class="block text-sm font-medium text-gray-500 mb-2">
-            Assign Role
-          </label>
-          <%= f.select :role, 
-              options_for_select([['Employee', 'employee'], ['Admin', 'admin']], @user.role),
-              { include_blank: "Select a role" },
-              class: "w-full rounded-md border-gray-300 bg-gray-50 shadow-sm focus:border-green-500 focus:ring-green-500 focus:bg-white px-3 py-2.5" %>
-        </div>
+        <%= f.label :role, "Assign Role", class: "block text-sm font-medium text-gray-500 mb-2" %>
+        <%= render RubyUI::Select.new do %>
+          <%= render RubyUI::SelectInput.new(name: "user[role]", value: @user.role) %>
+          <%= render RubyUI::SelectTrigger.new do %>
+            <%= render RubyUI::SelectValue.new(placeholder: "Select a role") do %>
+              <%= @user.role.present? ? @user.role.capitalize : "Select a role" %>
+            <% end %>
+          <% end %>
+          <%= render RubyUI::SelectContent.new do %>
+            <%= render RubyUI::SelectItem.new(value: "employee", **{ aria: { selected: (@user.role == "employee").to_s } }) { "Employee" } %>
+            <%= render RubyUI::SelectItem.new(value: "admin", **{ aria: { selected: (@user.role == "admin").to_s } }) { "Admin" } %>
+          <% end %>
+        <% end %>
       <% end %>
 
       <!-- Department Card -->
       <%= f.fields_for :employee do |employee_fields| %>
         <%= render 'shared/info_card', title: 'Department', icon: 'building-office-2' do %>
-          <div>
-            <label for="employee_department" class="block text-sm font-medium text-gray-500 mb-2">
-              Assign Department
-            </label>
-            <%= employee_fields.select :department, 
-                options_for_select(DEPARTMENTS, @user.employee&.department),
-                { include_blank: "Select a department" },
-                class: "w-full rounded-md border-gray-300 bg-gray-50 shadow-sm focus:border-green-500 focus:ring-green-500 focus:bg-white px-3 py-2.5" %>
-          </div>
+          <%= employee_fields.label :department, "Assign Department", class: "block text-sm font-medium text-gray-500 mb-2" %>
+          <%= render RubyUI::Select.new do %>
+            <%= render RubyUI::SelectInput.new(name: "user[employee_attributes][department]", value: @user.employee&.department) %>
+            <%= render RubyUI::SelectTrigger.new do %>
+              <%= render RubyUI::SelectValue.new(placeholder: "Select a department") do %>
+                <%= @user.employee&.department.present? ? @user.employee.department : "Select a department" %>
+              <% end %>
+            <% end %>
+            <%= render RubyUI::SelectContent.new do %>
+              <% DEPARTMENTS.each do |dept| %>
+                <%= render RubyUI::SelectItem.new(value: dept, **{ aria: { selected: (@user.employee&.department == dept).to_s } }) { dept } %>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

@@ -1,10 +1,1 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-  <div class="flex items-center justify-end mb-4">
-    <%= link_to edit_my_profile_path, class: "inline-flex items-center px-4 py-2 bg-green-900 text-white text-sm rounded-md hover:bg-green-800 transition-colors" do %>
-      <%= heroicon "pencil", variant: :outline, options: { class: "w-4 h-4 mr-2" } %>
-      Edit Profile
-    <% end %>
-  </div>
-</div>
-
-<%= render 'shared/profile_details', user: @user, show_edit: false %>
+<%= render 'shared/profile_details', user: @user, show_edit: false, show_edit_button: true %>
