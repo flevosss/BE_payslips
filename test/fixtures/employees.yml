@@ -2,8 +2,8 @@
 
 employee_one:
   user: employee_user
-  first_name: John
-  last_name: Doe
+  first_name: Michalis
+  last_name: Flevaris
   date_of_birth: 1990-01-15
   address: 123 Main Street
   postal_code: 1234AB

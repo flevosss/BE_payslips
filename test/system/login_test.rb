@@ -9,7 +9,7 @@ class LoginTest < ApplicationSystemTestCase
     click_button "Log in"
     
     # Check that we're logged in
-    assert_text "Hello, John"
+    assert_text "Hello, Michalis"
     assert_text "Log out"
   end
 end

@@ -14,7 +14,7 @@ class EmployeesController < ApplicationController
       )
     end
     
-    @users = @users.page(params[:page]).per(5)
+    @users = @users.page(params[:page]).per(5) #pag is how many pages there are
   end
 
   def show
