@@ -13,9 +13,7 @@
     <%= link_to my_payslips_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
       <div class="flex items-center justify-between mb-4">
         <div class="bg-green-950 rounded-lg p-3">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
+          <%= heroicon "document-text", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
         </div>
       </div>
       <h3 class="text-xl font-semibold text-gray-900 mb-2">My Payslips</h3>
@@ -25,9 +23,7 @@
     <%= link_to my_profile_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
       <div class="flex items-center justify-between mb-4">
         <div class="bg-green-950 rounded-lg p-3">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-          </svg>
+          <%= heroicon "user", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
         </div>
       </div>
       <h3 class="text-xl font-semibold text-gray-900 mb-2">My Profile</h3>
@@ -37,9 +33,7 @@
     <%= link_to request_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
       <div class="flex items-center justify-between mb-4">
         <div class="bg-green-950 rounded-lg p-3">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
+          <%= heroicon "calendar", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
         </div>
       </div>
       <h3 class="text-xl font-semibold text-gray-900 mb-2">Request Leave</h3>
@@ -50,9 +44,7 @@
       <%= link_to employees_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
         <div class="flex items-center justify-between mb-4">
           <div class="bg-green-950 rounded-lg p-3">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
+            <%= heroicon "user-group", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
           </div>
         </div>
         <h3 class="text-xl font-semibold text-gray-900 mb-2">Manage Employees</h3>
@@ -64,9 +56,7 @@
       <%= link_to payslips_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
         <div class="flex items-center justify-between mb-4">
           <div class="bg-green-950 rounded-lg p-3">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
+            <%= heroicon "document-plus", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
           </div>
         </div>
         <h3 class="text-xl font-semibold text-gray-900 mb-2">Manage Payslips</h3>
@@ -76,9 +66,7 @@
       <%= link_to admin_leaves_path, class: "block bg-white rounded-[2rem] shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6 border border-gray-200 cursor-pointer overflow-hidden" do %>
         <div class="flex items-center justify-between mb-4">
           <div class="bg-green-950 rounded-lg p-3">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-            </svg>
+            <%= heroicon "clipboard-document-check", variant: :outline, options: { class: "w-6 h-6 text-white" } %>
           </div>
         </div>
         <h3 class="text-xl font-semibold text-gray-900 mb-2">Manage Leave Requests</h3>
