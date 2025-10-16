@@ -22,7 +22,7 @@ module RubyUI
           class:
                 [
                   BASE_CLASS,
-                  "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground"
+                  "bg-green-900 text-white hover:bg-green-900 hover:text-white focus:bg-green-950 focus:text-white"
                 ],
           role: "gridcell",
           tabindex: "0",
