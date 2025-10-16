@@ -1,3 +1,5 @@
+<% content_for :title, "Log in - RailSlips" %>
+
 <%= render layout: "shared/auth_card", locals: { title: "Log in" } do %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %> 
     <div class="field mb-2 mt-5">
