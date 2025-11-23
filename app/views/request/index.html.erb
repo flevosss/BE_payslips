@@ -11,7 +11,6 @@
   <% else %>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
       
-      <!-- Left Column: Request Form -->
       <div class="lg:col-span-4">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
           <div class="flex items-center px-6 py-4 border-b border-gray-100">
@@ -23,7 +22,6 @@
           
           <%= form_with model: @vacation_request, url: request_path, class: "space-y-5 p-6" do |f| %>
             
-            <!-- Leave Type -->
             <div>
               <%= f.label :leave_type, "Type of Leave", class: "block text-sm font-medium text-gray-700 mb-2" %>
               <%= render RubyUI::Select.new do %>
@@ -47,7 +45,6 @@
               <% end %>
             </div>
             
-            <!-- Start Date -->
             <div>
               <%= f.label :start_date, class: "block text-sm font-medium text-gray-700 mb-2" do %>
                 Start Date
@@ -77,7 +74,6 @@
               <% end %>
             </div>
 
-            <!-- End Date -->
             <div>
               <%= f.label :end_date, class: "block text-sm font-medium text-gray-700 mb-2" do %>
                 End Date
@@ -107,7 +103,6 @@
               <% end %>
             </div>
 
-            <!-- Reason -->
             <div>
               <%= f.label :reason, class: "block text-sm font-medium text-gray-700 mb-2" do %>
                 Reason
@@ -124,14 +119,12 @@
               <% end %>
             </div>
 
-            <!-- Submit Button -->
             <%= f.submit "Submit Request", 
                 class: "w-full bg-green-900 text-white py-3 rounded-lg hover:bg-green-800 transition-all font-semibold shadow-md hover:shadow-lg cursor-pointer" %>
           <% end %>
         </div>
       </div>
 
-      <!-- Right Column: Requests History -->
       <div class="lg:col-span-8">
         <%= render 'shared/requests_list', 
             requests: @vacation_requests,
