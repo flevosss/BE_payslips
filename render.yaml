@@ -1,29 +1,13 @@
-# PostgreSQL Database
-databases:
-  - name: railslips
-    databaseName: railslips_production
-    user: railslips
-    plan: free 
-    region: frankfurt 
-
-# Rails Web Application
-services:
-  - type: web
-    name: railslips-web
-    env: ruby
-    region: frankfurt
-    plan: free
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "./bin/render-start.sh"
-    healthCheckPath: /up
-    envVars:
-      - key: DATABASE_URL
-        sync: false
-      - key: RAILS_ENV
-        value: production
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: RAILS_LOG_TO_STDOUT
-        value: enabled
-      - key: RAILS_SERVE_STATIC_FILES
-        value: enabled
+envVars:
+  - key: DATABASE_URL
+    sync: false
+  - key: RAILS_ENV
+    value: production
+  - key: SECRET_KEY_BASE
+    sync: false
+  - key: RAILS_MASTER_KEY
+    sync: false
+  - key: RAILS_LOG_TO_STDOUT
+    value: enabled
+  - key: RAILS_SERVE_STATIC_FILES
+    value: enabled
