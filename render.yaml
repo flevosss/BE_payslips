@@ -16,15 +16,14 @@ services:
     buildCommand: "./bin/render-build.sh"
     startCommand: "./bin/render-start.sh"
     healthCheckPath: /up
-    releaseCommand: "bundle exec rails db:migrate"
     envVars:
-    - key: DATABASE_URL
-      sync: false
-    - key: RAILS_ENV
-      value: production
-    - key: RAILS_MASTER_KEY
-      sync: false
-    - key: RAILS_LOG_TO_STDOUT
-      value: enabled
-    - key: RAILS_SERVE_STATIC_FILES
-      value: enabled
+      - key: DATABASE_URL
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_LOG_TO_STDOUT
+        value: enabled
+      - key: RAILS_SERVE_STATIC_FILES
+        value: enabled
