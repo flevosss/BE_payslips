@@ -18,13 +18,13 @@ services:
     healthCheckPath: /up
     releaseCommand: "bundle exec rails db:migrate"
     envVars:
-      - key: DATABASE_URL
-        value: "postgresql://postgres:PUp4NPkB9lbQx7Z3@db.eksddpbqsutwhjkuszmi.supabase.co:5432/postgres?sslmode=require"
-      - key: RAILS_ENV
-        value: production
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: RAILS_LOG_TO_STDOUT
-        value: enabled
-      - key: RAILS_SERVE_STATIC_FILES
-        value: enabled
+    - key: DATABASE_URL
+      sync: false
+    - key: RAILS_ENV
+      value: production
+    - key: RAILS_MASTER_KEY
+      sync: false
+    - key: RAILS_LOG_TO_STDOUT
+      value: enabled
+    - key: RAILS_SERVE_STATIC_FILES
+      value: enabled
