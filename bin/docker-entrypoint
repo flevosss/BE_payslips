@@ -3,6 +3,15 @@ set -e
 
 rm -f /rails/tmp/pids/server.pid
 
+if [ -n "$DATABASE_HOST" ]; then
+  echo "Waiting for PostgreSQL to be ready..."
+  until pg_isready -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME"; do
+    echo "PostgreSQL is unavailable - sleeping"
+    sleep 1
+  done
+  echo "PostgreSQL is up - continuing..."
+fi
+
 echo "Creating database..."
 bundle exec rails db:create || true
 
@@ -12,7 +21,9 @@ bundle exec rails db:migrate
 echo "Seeding database..."
 bundle exec rails db:seed || true
 
-echo "Building Tailwind CSS..."
-bundle exec rails tailwindcss:build || true
+if [ "$RAILS_ENV" = "production" ]; then
+  echo "Precompiling assets..."
+  bundle exec rails assets:precompile
+fi
 
 exec "$@"

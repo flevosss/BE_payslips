@@ -18,7 +18,6 @@ services:
   web:
     build: .
     volumes:
-      - .:/rails
       - bundle_cache:/usr/local/bundle
     ports:
       - "3000:3000"
